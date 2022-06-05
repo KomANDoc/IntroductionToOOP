@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroductionToOOP", "IntroductionToOOP\IntroductionToOOP.vcxproj", "{D078714B-7F86-4BE9-8EE1-AA8290B7321E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassFractoin", "ClassFractoin\ClassFractoin.vcxproj", "{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{D078714B-7F86-4BE9-8EE1-AA8290B7321E}.Release|x64.Build.0 = Release|x64
 		{D078714B-7F86-4BE9-8EE1-AA8290B7321E}.Release|x86.ActiveCfg = Release|Win32
 		{D078714B-7F86-4BE9-8EE1-AA8290B7321E}.Release|x86.Build.0 = Release|Win32
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Debug|x64.ActiveCfg = Debug|x64
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Debug|x64.Build.0 = Debug|x64
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Debug|x86.ActiveCfg = Debug|Win32
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Debug|x86.Build.0 = Debug|Win32
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x64.ActiveCfg = Release|x64
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x64.Build.0 = Release|x64
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x86.ActiveCfg = Release|Win32
+		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

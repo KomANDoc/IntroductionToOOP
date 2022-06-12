@@ -14,7 +14,8 @@ bool operator>= (Fraction L, Fraction R);
 bool operator<= (Fraction L, Fraction R);
 bool operator== (Fraction L, Fraction R);
 bool operator!= (Fraction L, Fraction R);
-
+std::ostream& operator<< (std::ostream& os, const Fraction& obj);
+std::istream& operator>> (std::istream& is, Fraction& obj);
 
 class Fraction
 {
@@ -30,11 +31,46 @@ public:
 		this->denominator = 1;
 		this->integer = 0;
 	}
-	Fraction(int integer)
+	/*explicit Fraction(int integer)
 	{
 		this->numerator = 0;
 		this->denominator = 1;
 		this->integer = integer;
+	}«апрещает не€вное преобразование*/ 
+	explicit Fraction(int integer)
+	{
+		this->numerator = 0;
+		this->denominator = 1;
+		this->integer = integer;
+	}
+	explicit Fraction(double integer)
+	{
+		this->integer = (int)integer;
+		this->denominator = 1000000;
+		this->numerator = int(((integer - (int)integer) + 0.0000000001) * denominator);
+		this->reductoin();
+		/*this->integer = (int)integer;
+		this->numerator = 0;
+		this->denominator = 1;
+		integer -= (int)integer;
+		int t = 1;
+		for (int i = 10;  != t; i *= 10)
+		{
+			double t = integer * i;
+			this->denominator = i;
+			this->numerator = int(integer * i);
+		}
+		this->reductoin();*/
+		/*double numerator = integer - (int)integer;
+		this->integer = (int)integer;
+		this->denominator = 1;
+		for (int i = 10; numerator != (int)numerator;)
+		{
+			numerator *= i;
+			this->denominator *= i;
+		}
+		this->numerator = (int)numerator;
+		this->reductoin();*/
 	}
 	Fraction(int numerator, int denominator)
 	{
@@ -200,18 +236,34 @@ public:
 		integer++;
 		return *this;
 	}
+	Fraction& operator()(int integer, int numerator, int denominator)
+	{
+		set_integer(integer);
+		set_numerator(numerator);
+		set_denominator(denominator);
+		return *this;
+	}
 	Fraction operator++ (int)//Sufix Inc
 	{
 		Fraction old = *this;
 		integer++;
 		return old;
 	}
+	
 
+	explicit operator int()
+	{
+		return this->integer;
+	}
+	explicit operator double()
+	{
+		return this->integer + (double)this->numerator / (double)this->denominator;
+	}
 };
 
 
 //#define CONSTRUCTORS_CHEK
-
+//#define CONVERSION_FROM_CLASS
 
 void main()
 {
@@ -225,60 +277,23 @@ void main()
 	C.print();
 #endif
 
-	Fraction A(5, 3);
-	Fraction B(7, 2);
-	A.print();
-	B.print();
-	A.to_propert();
-	B.to_propert();
+#ifdef CONVERSION_FROM_CLASS
 
-	if (A > B)
-	{
-		cout << 1 << endl;
-	}
-	else
-	{
-		cout << 0 << endl;
-	}
+	Fraction A = 5;// не€вное преобразование 5 в класс дробь
+	//Fraction A = Fraction(5) // €вное преобразование 5 в класс дробь
+	cout << A << endl;
+	Fraction B(1, 2);
+	A += B * A;
+	cout << A << endl;
+	double a = (double)A;
+	cout << a << endl;
+#endif 
 
-	A.print();
-	B.print();
-
-	if (A < B)
-	{
-		cout << 1 << endl;
-	}
-	else
-	{
-		cout << 0 << endl;
-	}
-
-	A.print();
-	B.print();
-
-	if (A == B)
-	{
-		cout << 1 << endl;
-	}
-	else
-	{
-		cout << 0 << endl;
-	}
-
-	A.print();
-	B.print();
-
-	if (A != B)
-	{
-		cout << 1 << endl;
-	}
-	else
-	{
-		cout << 0 << endl;
-	}
-
-	A.print();
-	B.print();
+	Fraction A = Fraction(5.728);
+	cout << A << endl;
+	Fraction B;
+	cin >> B;
+	cout << "\n" << B << endl;
 }
 
 
@@ -329,7 +344,7 @@ Fraction& operator- (Fraction L, Fraction R)
 	return result;
 }
 
-int ComDen(Fraction L, Fraction R)
+int ComDen (Fraction L, Fraction R)
 {
 	int ComDen;
 	return ComDen = L.get_denominator() * R.get_denominator();
@@ -441,4 +456,53 @@ bool operator!= (Fraction L, Fraction R)
 	{
 		return false;
 	}
+}
+
+std::ostream& operator<< (std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer())cout << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer())cout << "(";
+		cout << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())cout << ")";
+	}
+	if (!obj.get_integer() and !obj.get_numerator())cout << 0;
+	cout << endl;
+	return os;
+}
+std::istream& operator>> (std::istream& is, Fraction& obj)
+{
+	
+	//int integer, numerator, denominator;
+	//cin >> integer >> numerator >> denominator;
+	//obj(integer, numerator, denominator);
+	
+	const int SIZE = 256;
+	char sz_buffer[SIZE] = {};
+	//is >> sz_buffer;
+	is.getline(sz_buffer, SIZE);
+	char* sz_numbers[3] = {};
+	char sz_delimiters[] = "() /";
+	int n = 0; //индекс элемента в массиве с подстроками (токенами)
+	for (char* pch = strtok(sz_buffer, sz_delimiters);pch; pch = strtok(NULL, sz_delimiters))
+	{
+		sz_numbers[n++] = pch;
+	}
+	//for (int i = 0; i < n;i++)cout << sz_numbers[i] << "\t"; cout << endl;
+	obj = Fraction();
+	switch (n)
+	{
+		//atoi() - ASCII - string to int (преобразование строки в инт)
+	case 1: obj.set_integer(atoi(sz_numbers[0])); break;
+	case 2: obj.set_numerator(atoi(sz_numbers[0]));
+			obj.set_denominator(atoi(sz_numbers[1]));
+			break;
+	case 3: obj.set_integer(atoi(sz_numbers[0]));
+			obj.set_numerator(atoi(sz_numbers[1]));
+			obj.set_denominator(atoi(sz_numbers[2]));
+			break;
+	default:break;
+	}
+	return is;
 }

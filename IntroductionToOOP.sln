@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IntroductionToOOP", "Introd
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ClassFractoin", "ClassFractoin\ClassFractoin.vcxproj", "{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "String", "String\String.vcxproj", "{073E56EA-B484-4632-A2FC-D11BD1197026}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x64.Build.0 = Release|x64
 		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x86.ActiveCfg = Release|Win32
 		{A4F36CF1-978B-4A45-84DC-83BE3C57CBAB}.Release|x86.Build.0 = Release|Win32
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Debug|x64.ActiveCfg = Debug|x64
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Debug|x64.Build.0 = Debug|x64
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Debug|x86.ActiveCfg = Debug|Win32
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Debug|x86.Build.0 = Debug|Win32
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Release|x64.ActiveCfg = Release|x64
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Release|x64.Build.0 = Release|x64
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Release|x86.ActiveCfg = Release|Win32
+		{073E56EA-B484-4632-A2FC-D11BD1197026}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

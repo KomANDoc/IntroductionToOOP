@@ -44,6 +44,12 @@ String::String(const String& line) :String(line.line)
 	//this->line = new char[size] {};
 	for (int i = 0; i < size; i++) this->line[i] = line.line[i];
 }
+String::String(String&& other)
+{
+	this->size = other.size;
+	this->line = other.line;
+	other.line = nullptr;//указатель на ноль
+}
 String::~String()
 {
 	delete[] line;

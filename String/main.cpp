@@ -13,4 +13,6 @@ void main()
 	String str4 = str3;
 	str4.to_lower();
 	str4.print();
+	str4 += str3;
+	cout << str4 << endl;
 }

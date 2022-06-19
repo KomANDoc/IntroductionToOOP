@@ -32,6 +32,7 @@ public:
 	explicit String(int size);
 	String(const char* line);
 	String(const String& line);
+	String(String&& other);
 	~String();
 
 	void print()const;

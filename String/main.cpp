@@ -40,13 +40,13 @@ public:
 		this->size = size;
 		this->line = new char[size] {};
 	}
-	String(const char* line) :size(strlen(line) + 1), line(new char[size]{})
+	String(const char* line) :String(strlen(line) + 1)
 	{
 		//this->size = strlen(line) + 1;
 		//this->line = new char[size] {};
 		for (int i = 0; i < size; i++) this->line[i] = line[i];
 	}
-	String (const String& line):size(line.size), line(new char[size]{})
+	String (const String& line):String(line.line)
 	{
 		//this->size = line.size;
 		//Выполняет Deep Copy
@@ -136,6 +136,9 @@ void main()
 	//при помощи фигурной скобки можно вызвать любой конструктор 
 	String str3 = "ОПОП";
 	str3.print();
+	String str4 = str3;
+	str4.to_lower();
+	str4.print();
 }
 
 String operator+ (const String& L, const String& R)

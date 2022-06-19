@@ -1,10 +1,14 @@
 #include <iostream>
+#include <Windows.h>
+#include <ctype.h>
 using namespace std;
 
 class String;
 
 String operator+ (const String& L, const String& R);
 std::ostream& operator<< (std::ostream& os, const String& line);
+std::istream& operator>> (std::istream& is, String& obj);
+std::istream& getline(std::istream& is, String& obj);
 bool is_palindrome(const String& obj);
 
 class String
@@ -78,7 +82,7 @@ public:
 	{
 		return*this = *this + line;
 	}
-	void to_upper()
+	/*void to_upper()
 	{
 		for (int i = 0; i < this->size; i++)
 		{
@@ -97,33 +101,43 @@ public:
 				this->line[i] = (int)line[i] + 32;
 			}
 		}
+	}*/
+	//другие аппер и ловер
+	String& to_upper()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			//if (line[i] >= 'a' and line[i] <= 'z')line[i] -= ' ';//или 32 по аске таблице. т.к.32 это пробел
+			//if (line[i] >= 'а' and line[i] <= 'я')line[i] -= ' ';
+			line[i] = toupper(line[i]);
+		}
+		return *this;
 	}
+	String& to_lower()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			//if (line[i] >= 'A' and line[i] <= 'Z')line[i] += ' ';//или 32 по аске таблице. т.к.32 это пробел
+			//if (line[i] >= 'А' and line[i] <= 'Я')line[i] += ' ';
+			line[i] = tolower(line[i]);
+		}
+		return *this;
+	}
+
 };
 
 void main()
 {
 	setlocale(LC_ALL, "RU");
-	String World = "World";
-	String Hello = "Hello";
-	Hello += World;
-	cout << Hello << endl;
-	cout << (int)'v' << "\t" << (int)'V' << endl;
-	cout << (int)'d' << "\t" << (int)'D' << endl;
-	cout << (int)'i' << "\t" << (int)'I' << endl;
-	cout << (int)'l' << "\t" << (int)'L' << endl;
-	Hello.to_upper();
-	cout << Hello << endl;
-	Hello.to_lower();
-	cout << Hello << endl;
-	String Ded = "bOoB";
-	if (is_palindrome(Ded))
-	{
-		cout << 1;
-	}
-	else
-	{
-		cout << 0;
-	}
+	String Ded;
+	getline(cin, Ded);
+	cout << Ded << endl;
+	cout << Ded.to_lower() << endl;
+	cout << Ded.to_upper() << endl;
+	//Есть много констракторов но
+	String str1(); //так мы делаем функцию а не строку!!!
+	String str2{}; //А вот так строковый тип
+	//при помощи фигурной скобки можно вызвать любой конструктор 
 }
 
 String operator+ (const String& L, const String& R)
@@ -143,28 +157,16 @@ std::ostream& operator<< (std::ostream& os, const String& line)
 {
 	return os << line.get_line();
 }
-/*std::istream& operator>> (std::istream& is, String& obj)
+std::istream& operator>> (std::istream& is, String& obj)
 {
-
-	//int integer, numerator, denominator;
-	//cin >> integer >> numerator >> denominator;
-	//obj(integer, numerator, denominator);
-
-	const int SIZE = 256;
+	const int SIZE = 8192;
 	char sz_buffer[SIZE] = {};
-	//is >> sz_buffer;
-	is.getline(sz_buffer, SIZE);
-	char* sz_numbers[3] = {};
-	char sz_delimiters[] = "() /";
-	int n = 0; //индекс элемента в массиве с подстроками (токенами)
-	for (char* pch = strtok(sz_buffer, sz_delimiters);pch; pch = strtok(NULL, sz_delimiters))
-	{
-		sz_numbers[n++] = pch;
-	}
-	//for (int i = 0; i < n;i++)cout << sz_numbers[i] << "\t"; cout << endl;
-	obj = Fraction();
+	SetConsoleCP(1251);//для ввода русских букв
+	is >> sz_buffer;
+	SetConsoleCP(866);
+	obj = sz_buffer;
 	return is;
-}*/
+}
 bool is_palindrome(const String& obj)
 {
 	String palindrome = obj.get_line();
@@ -182,4 +184,12 @@ bool is_palindrome(const String& obj)
 		}
 	}			
 	return 1;
+}
+
+std::istream& getline(std::istream& is, String& obj)
+{
+	SetConsoleCP(1251);
+	is.getline(obj.get_line(), obj.get_size());
+	SetConsoleCP(866);
+	return is;
 }

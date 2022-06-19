@@ -43,11 +43,13 @@ public:
 		this->denominator = 1;
 		this->integer = integer;
 	}
-	explicit Fraction(double integer)
+	explicit Fraction(double decimal)
 	{
-		this->integer = (int)integer;
-		this->denominator = 1000000;
-		this->numerator = int(((integer - (int)integer) + 0.0000000001) * denominator);
+		this->integer = (int)decimal;
+		//this->denominator = 1000000;
+		this->denominator = 1e+9;
+		//this->numerator = int(((decimal - (int)decimal) + 0.0000000001) * denominator);
+		this->numerator = int(((decimal - (int)decimal) + 1e-10) * denominator);
 		this->reductoin();
 		/*this->integer = (int)integer;
 		this->numerator = 0;
@@ -289,11 +291,11 @@ void main()
 	cout << a << endl;
 #endif 
 
-	Fraction A = Fraction(5.728);
+	Fraction A = (Fraction)5.56;
 	cout << A << endl;
-	Fraction B;
-	cin >> B;
-	cout << "\n" << B << endl;
+	//Fraction B;
+	//cin >> B;
+	//cout << "\n" << B << endl;
 }
 
 

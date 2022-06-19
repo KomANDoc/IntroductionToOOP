@@ -30,27 +30,27 @@ public:
 		return line;
 	}
 
-	explicit String():size(size), line(new char[size]{})
+	explicit String()
 	{
-		//this->size = 80;
-		//this->line = new char[80] {};
+		this->size = 80;
+		this->line = new char[80] {};
 	}
 	explicit String(int size)
 	{
 		this->size = size;
 		this->line = new char[size] {};
 	}
-	String(const char* line) :String(strlen(line) + 1)
+	String(const char* line)
 	{
-		//this->size = strlen(line) + 1;
-		//this->line = new char[size] {};
+		this->size = strlen(line) + 1;
+		this->line = new char[size] {};
 		for (int i = 0; i < size; i++) this->line[i] = line[i];
 	}
-	String (const String& line):String(line.line)
+	String (const String& line)
 	{
-		//this->size = line.size;
+		this->size = line.size;
 		//Выполняет Deep Copy
-		//this->line = new char[size] {};
+		this->line = new char[size] {};
 		for (int i = 0; i < size; i++) this->line[i] = line.line[i];
 	}
 	~String()
@@ -130,15 +130,14 @@ void main()
 {
 	setlocale(LC_ALL, "RU");
 	String Ded;
+	getline(cin, Ded);
+	cout << Ded << endl;
+	cout << Ded.to_lower() << endl;
+	cout << Ded.to_upper() << endl;
 	//Есть много констракторов но
 	String str1(); //так мы делаем функцию а не строку!!!
 	String str2{}; //А вот так строковый тип
 	//при помощи фигурной скобки можно вызвать любой конструктор 
-	String str3 = "ОПОП";
-	str3.print();
-	String str4 = str3;
-	str4.to_lower();
-	str4.print();
 }
 
 String operator+ (const String& L, const String& R)

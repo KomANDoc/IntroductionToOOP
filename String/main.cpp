@@ -17,71 +17,21 @@ class String
 	char* line;
 public:
 
-	int get_size()const
-	{
-		return size;
-	}
-	char* get_line()
-	{
-		return line;
-	}
-	const char* get_line()const
-	{
-		return line;
-	}
+	int get_size()const;
+	char* get_line();
+	const char* get_line()const;
 
-	explicit String():size(size), line(new char[size]{})
-	{
-		//this->size = 80;
-		//this->line = new char[80] {};
-	}
-	explicit String(int size)
-	{
-		this->size = size;
-		this->line = new char[size] {};
-	}
-	String(const char* line) :String(strlen(line) + 1)
-	{
-		//this->size = strlen(line) + 1;
-		//this->line = new char[size] {};
-		for (int i = 0; i < size; i++) this->line[i] = line[i];
-	}
-	String (const String& line):String(line.line)
-	{
-		//this->size = line.size;
-		//Выполняет Deep Copy
-		//this->line = new char[size] {};
-		for (int i = 0; i < size; i++) this->line[i] = line.line[i];
-	}
-	~String()
-	{
-		delete[] line;
-	}
+	explicit String();
+	explicit String(int size);
+	String(const char* line);
+	String(const String& line);
+	~String();
 
-	void print()const
-	{
-		cout << size << endl;
-		cout << line << endl;
-	}
+	void print()const;
 
-	String& operator= (const String& line)
-	{
-		if (this == &line) return *this;
-		delete[] this->line;
-		this->size = line.size;
-		//Как и CopyConstractor выполняет Deep Copy
-		this->line = new char[size] {};
-		for (int i = 0; i < size; i++) this->line[i] = line.line[i];
-		return *this;
-	}
-	char& operator[] (int i)const
-	{
-		return line[i];
-	}
-	String& operator+= (const String& line)
-	{
-		return*this = *this + line;
-	}
+	String& operator= (const String& line);
+	char& operator[] (int i)const;
+	String& operator+= (const String& line);
 	/*void to_upper()
 	{
 		for (int i = 0; i < this->size; i++)
@@ -103,28 +53,118 @@ public:
 		}
 	}*/
 	//другие аппер и ловер
-	String& to_upper()
-	{
-		for (int i = 0; i < size; i++)
-		{
-			//if (line[i] >= 'a' and line[i] <= 'z')line[i] -= ' ';//или 32 по аске таблице. т.к.32 это пробел
-			//if (line[i] >= 'а' and line[i] <= 'я')line[i] -= ' ';
-			line[i] = toupper(line[i]);
-		}
-		return *this;
-	}
-	String& to_lower()
-	{
-		for (int i = 0; i < size; i++)
-		{
-			//if (line[i] >= 'A' and line[i] <= 'Z')line[i] += ' ';//или 32 по аске таблице. т.к.32 это пробел
-			//if (line[i] >= 'А' and line[i] <= 'Я')line[i] += ' ';
-			line[i] = tolower(line[i]);
-		}
-		return *this;
-	}
+	String& to_upper();
+	String& to_lower();
 
 };
+
+int String::get_size()const
+{
+	return size;
+}
+char* String::get_line()
+{
+	return line;
+}
+const char* String::get_line()const
+{
+	return line;
+}
+
+String::String() :size(size), line(new char[size] {})
+{
+	//this->size = 80;
+	//this->line = new char[80] {};
+}
+String::String(int size)
+{
+	this->size = size;
+	this->line = new char[size] {};
+}
+String::String(const char* line) :String(strlen(line) + 1)
+{
+	//this->size = strlen(line) + 1;
+	//this->line = new char[size] {};
+	for (int i = 0; i < size; i++) this->line[i] = line[i];
+}
+String::String(const String& line) :String(line.line)
+{
+	//this->size = line.size;
+	//Выполняет Deep Copy
+	//this->line = new char[size] {};
+	for (int i = 0; i < size; i++) this->line[i] = line.line[i];
+}
+String::~String()
+{
+	delete[] line;
+}
+
+void String:: print()const
+{
+	cout << size << endl;
+	cout << line << endl;
+}
+
+String& String::operator= (const String& line)
+{
+	if (this == &line) return *this;
+	delete[] this->line;
+	this->size = line.size;
+	//Как и CopyConstractor выполняет Deep Copy
+	this->line = new char[size] {};
+	for (int i = 0; i < size; i++) this->line[i] = line.line[i];
+	return *this;
+}
+char& String::operator[] (int i)const
+{
+	return line[i];
+}
+String& String::operator+= (const String& line)
+{
+	return*this = *this + line;
+}
+/*void to_upper()
+{
+	for (int i = 0; i < this->size; i++)
+	{
+		if ((int)line[i] > 96 and (int)line[i] < 123)
+		{
+		this->line[i] = (int)line[i] - 32;
+		}
+	}
+}
+void to_lower()
+{
+	for (int i = 0; i < this->size; i++)
+	{
+		if ((int)line[i] > 64 and (int)line[i] < 91)
+		{
+			this->line[i] = (int)line[i] + 32;
+		}
+	}
+}*/
+//другие аппер и ловер
+String& String::to_upper()
+{
+	for (int i = 0; i < size; i++)
+	{
+		//if (line[i] >= 'a' and line[i] <= 'z')line[i] -= ' ';//или 32 по аске таблице. т.к.32 это пробел
+		//if (line[i] >= 'а' and line[i] <= 'я')line[i] -= ' ';
+		line[i] = toupper(line[i]);
+	}
+	return *this;
+}
+String& String::to_lower()
+{
+	for (int i = 0; i < size; i++)
+	{
+		//if (line[i] >= 'A' and line[i] <= 'Z')line[i] += ' ';//или 32 по аске таблице. т.к.32 это пробел
+		//if (line[i] >= 'А' and line[i] <= 'Я')line[i] += ' ';
+		line[i] = tolower(line[i]);
+	}
+	return *this;
+}
+
 
 void main()
 {

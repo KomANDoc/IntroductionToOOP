@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
+#include <Windows.h>
+#include <ctype.h>
 using namespace std;
 
-class Fractoin;
+class Fraction;
 
 Fraction& operator* (Fraction L, Fraction R);
 Fraction& operator/ (Fraction L, Fraction R);

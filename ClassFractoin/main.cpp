@@ -1,7 +1,7 @@
 #include "Fractoin.h"
 
 
-#define CONSTRUCTORS_CHEK
+//#define CONSTRUCTORS_CHEK
 //#define CONVERSION_FROM_CLASS
 
 void main()

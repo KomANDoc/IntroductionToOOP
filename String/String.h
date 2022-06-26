@@ -38,6 +38,7 @@ public:
 	void print()const;
 
 	String& operator= (const String& line);
+	String& operator= (String&& other);
 	char& operator[] (int i)const;
 	String& operator+= (const String& line);
 	/*void to_upper()

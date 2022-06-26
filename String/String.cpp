@@ -71,6 +71,13 @@ String& String::operator= (const String& line)
 	for (int i = 0; i < size; i++) this->line[i] = line.line[i];
 	return *this;
 }
+String& String::operator= (String&& other)
+{
+	delete line;
+	line = other.line;
+	other.line = nullptr;
+	return *this;
+}
 char& String::operator[] (int i)const
 {
 	return line[i];

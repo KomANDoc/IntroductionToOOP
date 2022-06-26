@@ -1,5 +1,242 @@
 #include "Fractoin.h"
 
+	Fraction::Fraction()
+	{
+		this->numerator = 0;
+		this->denominator = 1;
+		this->integer = 0;
+	}
+	/*explicit Fraction(int integer)
+	{
+		this->numerator = 0;
+		this->denominator = 1;
+		this->integer = integer;
+	}Запрещает неявное преобразование*/
+	Fraction::Fraction(int integer)
+	{
+		this->numerator = 0;
+		this->denominator = 1;
+		this->integer = integer;
+	}
+	Fraction:: Fraction(double decimal)
+	{
+		this->integer = (int)decimal;
+		//this->denominator = 1000000;
+		this->denominator = 1e+9;
+		//this->numerator = int(((decimal - (int)decimal) + 0.0000000001) * denominator);
+		this->numerator = int(((decimal - (int)decimal) + 1e-10) * denominator);
+		this->reductoin();
+		/*this->integer = (int)integer;
+		this->numerator = 0;
+		this->denominator = 1;
+		integer -= (int)integer;
+		int t = 1;
+		for (int i = 10;  != t; i *= 10)
+		{
+			double t = integer * i;
+			this->denominator = i;
+			this->numerator = int(integer * i);
+		}
+		this->reductoin();*/
+		/*double numerator = integer - (int)integer;
+		this->integer = (int)integer;
+		this->denominator = 1;
+		for (int i = 10; numerator != (int)numerator;)
+		{
+			numerator *= i;
+			this->denominator *= i;
+		}
+		this->numerator = (int)numerator;
+		this->reductoin();*/
+	}
+	Fraction::Fraction(int numerator, int denominator)
+	{
+		this->numerator = numerator;
+		this->set_denominator(denominator);
+		this->integer = 0;
+	}
+	Fraction::Fraction(int integer, int numerator, int denominator)
+	{
+		this->numerator = numerator;
+		this->set_denominator(denominator);
+		this->integer = integer;
+	}
+	Fraction::Fraction(const Fraction& other)
+	{
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		this->integer = other.integer;
+	}
+	Fraction::~Fraction() {}
+
+	int Fraction::get_numerator()const
+	{
+		return numerator;
+	}
+	int Fraction::get_denominator()const
+	{
+		return denominator;
+	}
+	int Fraction::get_integer()const
+	{
+		return integer;
+	}
+
+	void Fraction::set_numerator(int numerator)
+	{
+		this->numerator = numerator;
+	}
+	void Fraction::set_denominator(int denominator)
+	{
+		if (denominator == 0) denominator = 1;
+		this->denominator = denominator;
+	}
+	void Fraction::set_integer(int integer)
+	{
+		this->integer = integer;
+	}
+
+	void Fraction::print()const
+	{
+		if (integer)cout << integer;
+		if (numerator)
+		{
+			if (integer)cout << "(";
+			cout << numerator << "/" << denominator;
+			if (integer)cout << ")";
+		}
+		if (!integer and !numerator)cout << 0;
+		cout << endl;
+	}
+	Fraction& Fraction::to_impropert()
+	{
+		numerator += integer * denominator;
+		integer = 0;
+		return *this;
+	}
+	Fraction& Fraction::to_propert()
+	{
+		integer += numerator / denominator;
+		numerator %= denominator;
+		return *this;
+	}
+	Fraction& Fraction::inverted()
+	{
+		Fraction inverted = *this;
+		inverted.to_impropert();
+		int buffer;
+		buffer = numerator;
+
+	}//!!!
+	Fraction& Fraction::reductoin()
+	{
+		int nod = 1;
+		for (int i = numerator; i > 0; i--)
+		{
+			if (numerator % i == 0 && denominator % i == 0)
+			{
+				nod = i; break;
+			}
+		}
+		numerator /= nod;
+		denominator /= nod;
+		return *this;
+
+	}
+	/*Fraction& reductoin()
+	{
+		bool T = true;
+		do
+		{
+			if (numerator % 2 == 0 and denominator % 2 == 0)
+			{
+				numerator /= 2;
+				denominator /= 2;
+			}
+			else if (numerator % 3 == 0 and denominator % 3 == 0)
+			{
+				numerator /= 3;
+				denominator /= 3;
+			}
+			else if (numerator % 5 == 0 and denominator % 5 == 0)
+			{
+				numerator /= 5;
+				denominator /= 5;
+			}
+			else if (denominator % numerator == 0)
+			{
+				numerator /= numerator;
+				denominator /= numerator;
+			}
+			else if (numerator == 1)
+			{
+				T = false;
+			}
+			else
+			{
+				T = false;
+			}
+		} while (T);
+		return *this;
+	}*/
+
+	Fraction& Fraction::operator= (const Fraction& other)
+	{
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		this->integer = other.integer;
+		return *this;
+	}
+	Fraction& Fraction::operator*= (Fraction other)
+	{
+		/*this->to_impropert();
+		other.to_impropert();
+		this->numerator = numerator * other.numerator;
+		this->denominator = denominator * other.denominator;
+		this->to_propert();*/
+		return *this = *this * other;
+	}
+	Fraction& Fraction::operator/= (Fraction other)
+	{
+		return *this = *this / other;
+	}
+	Fraction& Fraction::operator+= (Fraction other)
+	{
+		return *this = *this + other;
+	}
+	Fraction& Fraction::operator-= (Fraction other)
+	{
+		return *this = *this - other;
+	}
+	Fraction& Fraction::operator++ ()//Prefix Inc
+	{
+		integer++;
+		return *this;
+	}
+	Fraction& Fraction::operator()(int integer, int numerator, int denominator)
+	{
+		set_integer(integer);
+		set_numerator(numerator);
+		set_denominator(denominator);
+		return *this;
+	}
+	Fraction Fraction::operator++ (int)//Sufix Inc
+	{
+		Fraction old = *this;
+		integer++;
+		return old;
+	}
+
+
+	explicit Fraction::operator int()
+	{
+		return this->integer;
+	}
+	explicit Fraction::operator double()
+	{
+		return this->integer + (double)this->numerator / (double)this->denominator;
+	}
+
 Fraction& operator* (Fraction L, Fraction R)
 {
 	L.to_impropert();
@@ -24,7 +261,7 @@ Fraction& operator/ (Fraction L, Fraction R)
 	result.to_propert();
 	return result;
 }
-Fraction& operator+ (Fraction L, Fraction R)
+Fraction& operator+ ( Fraction L,Fraction R)
 {
 	L.to_impropert();
 	R.to_impropert();
@@ -209,251 +446,5 @@ std::istream& operator>> (std::istream& is, Fraction& obj)
 	}
 	return is;
 }
-
-class Fraction
-{
-
-	int numerator;
-	int denominator;
-	int integer;
-
-public:
-	Fraction()
-	{
-		this->numerator = 0;
-		this->denominator = 1;
-		this->integer = 0;
-	}
-	/*explicit Fraction(int integer)
-	{
-		this->numerator = 0;
-		this->denominator = 1;
-		this->integer = integer;
-	}Запрещает неявное преобразование*/
-	explicit Fraction(int integer)
-	{
-		this->numerator = 0;
-		this->denominator = 1;
-		this->integer = integer;
-	}
-	explicit Fraction(double decimal)
-	{
-		this->integer = (int)decimal;
-		//this->denominator = 1000000;
-		this->denominator = 1e+9;
-		//this->numerator = int(((decimal - (int)decimal) + 0.0000000001) * denominator);
-		this->numerator = int(((decimal - (int)decimal) + 1e-10) * denominator);
-		this->reductoin();
-		/*this->integer = (int)integer;
-		this->numerator = 0;
-		this->denominator = 1;
-		integer -= (int)integer;
-		int t = 1;
-		for (int i = 10;  != t; i *= 10)
-		{
-			double t = integer * i;
-			this->denominator = i;
-			this->numerator = int(integer * i);
-		}
-		this->reductoin();*/
-		/*double numerator = integer - (int)integer;
-		this->integer = (int)integer;
-		this->denominator = 1;
-		for (int i = 10; numerator != (int)numerator;)
-		{
-			numerator *= i;
-			this->denominator *= i;
-		}
-		this->numerator = (int)numerator;
-		this->reductoin();*/
-	}
-	Fraction(int numerator, int denominator)
-	{
-		this->numerator = numerator;
-		this->set_denominator(denominator);
-		this->integer = 0;
-	}
-	Fraction(int integer, int numerator, int denominator)
-	{
-		this->numerator = numerator;
-		this->set_denominator(denominator);
-		this->integer = integer;
-	}
-	Fraction(const Fraction& other)
-	{
-		this->numerator = other.numerator;
-		this->denominator = other.denominator;
-		this->integer = other.integer;
-	}
-	~Fraction() {}
-
-	int get_numerator()const
-	{
-		return numerator;
-	}
-	int get_denominator()const
-	{
-		return denominator;
-	}
-	int get_integer()const
-	{
-		return integer;
-	}
-
-	void set_numerator(int numerator)
-	{
-		this->numerator = numerator;
-	}
-	void set_denominator(int denominator)
-	{
-		if (denominator == 0) denominator = 1;
-		this->denominator = denominator;
-	}
-	void set_integer(int integer)
-	{
-		this->integer = integer;
-	}
-
-	void print()const
-	{
-		if (integer)cout << integer;
-		if (numerator)
-		{
-			if (integer)cout << "(";
-			cout << numerator << "/" << denominator;
-			if (integer)cout << ")";
-		}
-		if (!integer and !numerator)cout << 0;
-		cout << endl;
-	}
-	Fraction& to_impropert()
-	{
-		numerator += integer * denominator;
-		integer = 0;
-		return *this;
-	}
-	Fraction& to_propert()
-	{
-		integer += numerator / denominator;
-		numerator %= denominator;
-		return *this;
-	}
-	Fraction& inverted()
-	{
-		Fraction inverted = *this;
-		inverted.to_impropert();
-		int buffer;
-		buffer = numerator;
-
-	}//!!!
-	Fraction& reductoin()
-	{
-		int nod = 1;
-		for (int i = numerator; i > 0; i--)
-		{
-			if (numerator % i == 0 && denominator % i == 0)
-			{
-				nod = i; break;
-			}
-		}
-		numerator /= nod;
-		denominator /= nod;
-		return *this;
-
-	}
-	/*Fraction& reductoin()
-	{
-		bool T = true;
-		do
-		{
-			if (numerator % 2 == 0 and denominator % 2 == 0)
-			{
-				numerator /= 2;
-				denominator /= 2;
-			}
-			else if (numerator % 3 == 0 and denominator % 3 == 0)
-			{
-				numerator /= 3;
-				denominator /= 3;
-			}
-			else if (numerator % 5 == 0 and denominator % 5 == 0)
-			{
-				numerator /= 5;
-				denominator /= 5;
-			}
-			else if (denominator % numerator == 0)
-			{
-				numerator /= numerator;
-				denominator /= numerator;
-			}
-			else if (numerator == 1)
-			{
-				T = false;
-			}
-			else
-			{
-				T = false;
-			}
-		} while (T);
-		return *this;
-	}*/
-
-	Fraction& operator= (const Fraction& other)
-	{
-		this->numerator = other.numerator;
-		this->denominator = other.denominator;
-		this->integer = other.integer;
-		return *this;
-	}
-	Fraction& operator*= (Fraction other)
-	{
-		/*this->to_impropert();
-		other.to_impropert();
-		this->numerator = numerator * other.numerator;
-		this->denominator = denominator * other.denominator;
-		this->to_propert();*/
-		return *this = *this * other;
-	}
-	Fraction& operator/= (Fraction other)
-	{
-		return *this = *this / other;
-	}
-	Fraction& operator+= (Fraction other)
-	{
-		return *this = *this + other;
-	}
-	Fraction& operator-= (Fraction other)
-	{
-		return *this = *this - other;
-	}
-	Fraction& operator++ ()//Prefix Inc
-	{
-		integer++;
-		return *this;
-	}
-	Fraction& operator()(int integer, int numerator, int denominator)
-	{
-		set_integer(integer);
-		set_numerator(numerator);
-		set_denominator(denominator);
-		return *this;
-	}
-	Fraction operator++ (int)//Sufix Inc
-	{
-		Fraction old = *this;
-		integer++;
-		return old;
-	}
-
-
-	explicit operator int()
-	{
-		return this->integer;
-	}
-	explicit operator double()
-	{
-		return this->integer + (double)this->numerator / (double)this->denominator;
-	}
-};
 
 

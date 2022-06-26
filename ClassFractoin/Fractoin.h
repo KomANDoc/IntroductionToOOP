@@ -2,6 +2,8 @@
 #include <iostream>
 using namespace std;
 
+class Fractoin;
+
 Fraction& operator* (Fraction L, Fraction R);
 Fraction& operator/ (Fraction L, Fraction R);
 Fraction& operator+ (Fraction L, Fraction R);

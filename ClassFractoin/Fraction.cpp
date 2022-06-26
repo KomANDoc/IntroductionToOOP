@@ -1,5 +1,215 @@
 #include "Fractoin.h"
 
+Fraction& operator* (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	/*Fraction result;
+	result.set_numerator(R.get_numerator() * L.get_numerator());
+	result.set_denominator(R.get_denominator() * L.get_denominator()); но можно по другому*
+	result.to_propert();
+	return result*/
+
+	return Fraction
+	(L.get_numerator() * R.get_numerator(),
+		L.get_denominator() * R.get_denominator()).to_propert();
+}
+Fraction& operator/ (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	Fraction result;
+	result.set_numerator(L.get_numerator() * R.get_denominator());
+	result.set_denominator(L.get_denominator() * R.get_numerator());
+	result.to_propert();
+	return result;
+}
+Fraction& operator+ (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	Fraction result;
+	result.set_numerator(L.get_numerator() * R.get_denominator() + R.get_numerator() * L.get_denominator());
+	result.set_denominator(L.get_denominator() * R.get_denominator());
+	result.to_propert();
+	result.reductoin();
+	return result;
+}
+Fraction& operator- (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	Fraction result;
+	result.set_numerator(L.get_numerator() * R.get_denominator() - R.get_numerator() * L.get_denominator());
+	result.set_denominator(L.get_denominator() * R.get_denominator());
+	result.to_propert();
+	result.reductoin();
+	return result;
+}
+
+int ComDen(Fraction L, Fraction R)
+{
+	int ComDen;
+	return ComDen = L.get_denominator() * R.get_denominator();
+}
+bool operator> (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	ComDen(L, R);
+	L.set_denominator(L.get_denominator() * ComDen(L, R));
+	R.set_denominator(R.get_denominator() * ComDen(L, R));
+	L.set_numerator(L.get_numerator() * ComDen(L, R));
+	R.set_numerator(R.get_numerator() * ComDen(L, R));
+	if (L.get_numerator() > R.get_numerator())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool operator< (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	ComDen(L, R);
+	L.set_denominator(L.get_denominator() * ComDen(L, R));
+	R.set_denominator(R.get_denominator() * ComDen(L, R));
+	L.set_numerator(L.get_numerator() * ComDen(L, R));
+	R.set_numerator(R.get_numerator() * ComDen(L, R));
+	if (L.get_numerator() < R.get_numerator())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool operator>= (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	ComDen(L, R);
+	L.set_denominator(L.get_denominator() * ComDen(L, R));
+	R.set_denominator(R.get_denominator() * ComDen(L, R));
+	L.set_numerator(L.get_numerator() * ComDen(L, R));
+	R.set_numerator(R.get_numerator() * ComDen(L, R));
+	if (L.get_numerator() >= R.get_numerator())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool operator<= (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	ComDen(L, R);
+	L.set_denominator(L.get_denominator() * ComDen(L, R));
+	R.set_denominator(R.get_denominator() * ComDen(L, R));
+	L.set_numerator(L.get_numerator() * ComDen(L, R));
+	R.set_numerator(R.get_numerator() * ComDen(L, R));
+	if (L.get_numerator() <= R.get_numerator())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool operator== (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	ComDen(L, R);
+	L.set_denominator(L.get_denominator() * ComDen(L, R));
+	R.set_denominator(R.get_denominator() * ComDen(L, R));
+	L.set_numerator(L.get_numerator() * ComDen(L, R));
+	R.set_numerator(R.get_numerator() * ComDen(L, R));
+	if (L.get_numerator() == R.get_numerator())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+bool operator!= (Fraction L, Fraction R)
+{
+	L.to_impropert();
+	R.to_impropert();
+	ComDen(L, R);
+	L.set_denominator(L.get_denominator() * ComDen(L, R));
+	R.set_denominator(R.get_denominator() * ComDen(L, R));
+	L.set_numerator(L.get_numerator() * ComDen(L, R));
+	R.set_numerator(R.get_numerator() * ComDen(L, R));
+	if (L.get_numerator() != R.get_numerator())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+std::ostream& operator<< (std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer())cout << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer())cout << "(";
+		cout << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())cout << ")";
+	}
+	if (!obj.get_integer() and !obj.get_numerator())cout << 0;
+	cout << endl;
+	return os;
+}
+std::istream& operator>> (std::istream& is, Fraction& obj)
+{
+
+	//int integer, numerator, denominator;
+	//cin >> integer >> numerator >> denominator;
+	//obj(integer, numerator, denominator);
+
+	const int SIZE = 256;
+	char sz_buffer[SIZE] = {};
+	//is >> sz_buffer;
+	is.getline(sz_buffer, SIZE);
+	char* sz_numbers[3] = {};
+	char sz_delimiters[] = "() /";
+	int n = 0; //индекс элемента в массиве с подстроками (токенами)
+	for (char* pch = strtok(sz_buffer, sz_delimiters);pch; pch = strtok(NULL, sz_delimiters))
+	{
+		sz_numbers[n++] = pch;
+	}
+	//for (int i = 0; i < n;i++)cout << sz_numbers[i] << "\t"; cout << endl;
+	obj = Fraction();
+	switch (n)
+	{
+		//atoi() - ASCII - string to int (преобразование строки в инт)
+	case 1: obj.set_integer(atoi(sz_numbers[0])); break;
+	case 2: obj.set_numerator(atoi(sz_numbers[0]));
+		obj.set_denominator(atoi(sz_numbers[1]));
+		break;
+	case 3: obj.set_integer(atoi(sz_numbers[0]));
+		obj.set_numerator(atoi(sz_numbers[1]));
+		obj.set_denominator(atoi(sz_numbers[2]));
+		break;
+	default:break;
+	}
+	return is;
+}
+
 class Fraction
 {
 
@@ -247,212 +457,3 @@ public:
 };
 
 
-Fraction& operator* (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	/*Fraction result;
-	result.set_numerator(R.get_numerator() * L.get_numerator());
-	result.set_denominator(R.get_denominator() * L.get_denominator()); но можно по другому*
-	result.to_propert();
-	return result*/
-
-	return Fraction
-	(L.get_numerator() * R.get_numerator(),
-		L.get_denominator() * R.get_denominator()).to_propert();
-}
-Fraction& operator/ (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	Fraction result;
-	result.set_numerator(L.get_numerator() * R.get_denominator());
-	result.set_denominator(L.get_denominator() * R.get_numerator());
-	result.to_propert();
-	return result;
-}
-Fraction& operator+ (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	Fraction result;
-	result.set_numerator(L.get_numerator() * R.get_denominator() + R.get_numerator() * L.get_denominator());
-	result.set_denominator(L.get_denominator() * R.get_denominator());
-	result.to_propert();
-	result.reductoin();
-	return result;
-}
-Fraction& operator- (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	Fraction result;
-	result.set_numerator(L.get_numerator() * R.get_denominator() - R.get_numerator() * L.get_denominator());
-	result.set_denominator(L.get_denominator() * R.get_denominator());
-	result.to_propert();
-	result.reductoin();
-	return result;
-}
-
-int ComDen(Fraction L, Fraction R)
-{
-	int ComDen;
-	return ComDen = L.get_denominator() * R.get_denominator();
-}
-bool operator> (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	ComDen(L, R);
-	L.set_denominator(L.get_denominator() * ComDen(L, R));
-	R.set_denominator(R.get_denominator() * ComDen(L, R));
-	L.set_numerator(L.get_numerator() * ComDen(L, R));
-	R.set_numerator(R.get_numerator() * ComDen(L, R));
-	if (L.get_numerator() > R.get_numerator())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool operator< (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	ComDen(L, R);
-	L.set_denominator(L.get_denominator() * ComDen(L, R));
-	R.set_denominator(R.get_denominator() * ComDen(L, R));
-	L.set_numerator(L.get_numerator() * ComDen(L, R));
-	R.set_numerator(R.get_numerator() * ComDen(L, R));
-	if (L.get_numerator() < R.get_numerator())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool operator>= (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	ComDen(L, R);
-	L.set_denominator(L.get_denominator() * ComDen(L, R));
-	R.set_denominator(R.get_denominator() * ComDen(L, R));
-	L.set_numerator(L.get_numerator() * ComDen(L, R));
-	R.set_numerator(R.get_numerator() * ComDen(L, R));
-	if (L.get_numerator() >= R.get_numerator())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool operator<= (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	ComDen(L, R);
-	L.set_denominator(L.get_denominator() * ComDen(L, R));
-	R.set_denominator(R.get_denominator() * ComDen(L, R));
-	L.set_numerator(L.get_numerator() * ComDen(L, R));
-	R.set_numerator(R.get_numerator() * ComDen(L, R));
-	if (L.get_numerator() <= R.get_numerator())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool operator== (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	ComDen(L, R);
-	L.set_denominator(L.get_denominator() * ComDen(L, R));
-	R.set_denominator(R.get_denominator() * ComDen(L, R));
-	L.set_numerator(L.get_numerator() * ComDen(L, R));
-	R.set_numerator(R.get_numerator() * ComDen(L, R));
-	if (L.get_numerator() == R.get_numerator())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-bool operator!= (Fraction L, Fraction R)
-{
-	L.to_impropert();
-	R.to_impropert();
-	ComDen(L, R);
-	L.set_denominator(L.get_denominator() * ComDen(L, R));
-	R.set_denominator(R.get_denominator() * ComDen(L, R));
-	L.set_numerator(L.get_numerator() * ComDen(L, R));
-	R.set_numerator(R.get_numerator() * ComDen(L, R));
-	if (L.get_numerator() != R.get_numerator())
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-std::ostream& operator<< (std::ostream& os, const Fraction& obj)
-{
-	if (obj.get_integer())cout << obj.get_integer();
-	if (obj.get_numerator())
-	{
-		if (obj.get_integer())cout << "(";
-		cout << obj.get_numerator() << "/" << obj.get_denominator();
-		if (obj.get_integer())cout << ")";
-	}
-	if (!obj.get_integer() and !obj.get_numerator())cout << 0;
-	cout << endl;
-	return os;
-}
-std::istream& operator>> (std::istream& is, Fraction& obj)
-{
-
-	//int integer, numerator, denominator;
-	//cin >> integer >> numerator >> denominator;
-	//obj(integer, numerator, denominator);
-
-	const int SIZE = 256;
-	char sz_buffer[SIZE] = {};
-	//is >> sz_buffer;
-	is.getline(sz_buffer, SIZE);
-	char* sz_numbers[3] = {};
-	char sz_delimiters[] = "() /";
-	int n = 0; //индекс элемента в массиве с подстроками (токенами)
-	for (char* pch = strtok(sz_buffer, sz_delimiters);pch; pch = strtok(NULL, sz_delimiters))
-	{
-		sz_numbers[n++] = pch;
-	}
-	//for (int i = 0; i < n;i++)cout << sz_numbers[i] << "\t"; cout << endl;
-	obj = Fraction();
-	switch (n)
-	{
-		//atoi() - ASCII - string to int (преобразование строки в инт)
-	case 1: obj.set_integer(atoi(sz_numbers[0])); break;
-	case 2: obj.set_numerator(atoi(sz_numbers[0]));
-		obj.set_denominator(atoi(sz_numbers[1]));
-		break;
-	case 3: obj.set_integer(atoi(sz_numbers[0]));
-		obj.set_numerator(atoi(sz_numbers[1]));
-		obj.set_denominator(atoi(sz_numbers[2]));
-		break;
-	default:break;
-	}
-	return is;
-}

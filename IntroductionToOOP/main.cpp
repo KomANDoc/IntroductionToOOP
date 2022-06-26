@@ -1,98 +1,10 @@
-#include <iostream>
-using namespace std;
+#include "Point.h"
 
 //#define STRUCT_POINT
 //#define Distance
 //#define ConstructorsCheck
 //#define Copy_Assigment1
 //#define Copy_Assigment2
-
-
-class Point
-{
-	double x;
-	double y;
-
-public:
-
-	Point& operator= (const Point& other)
-	{
-		this->x = other.x;
-		this->y = other.y;
-		cout << "CopyAssigment: " << this << endl;
-		return *this;
-	}
-
-	double get_x()const
-	{
-		return x;
-	}
-	double get_y()const
-	{
-		return y;
-	}
-
-	void set_x(double x)
-	{
-		this->x = x;
-	}//
-	void set_y(double y)
-	{
-		this->y = y;
-	}
-
-	/*
-	Point()
-	{
-		x = y = double();
-		cout << "DefaultConstructor:\t" << this << endl;
-	}//
-	Point(double x)
-	{
-		this->x = x;
-		this->y = double();
-		cout << "1argKonstructor: " << this << endl;
-	}
-	Point(double x, double y)
-	{
-		this->x = x;
-		this->y = y;
-		cout << "Constructor: " << this << endl;
-	}
-	*/
-	Point(double x = 0, double y = 0)//есть возможность заменить все конструкторы выше на такой. но с ним нужно быть аккуратным!
-	{
-		this->x = x;
-		this->y = y;
-		cout << "Constructor: " << this << endl;
-	}
-	Point(const Point& other)
-	{
-		this->x = other.x;
-		this->y = other.y;
-		cout << "CopyConstructor: " << this << endl;
-	}
-	~Point()
-	{
-		cout << "Destructor: " << this << endl;
-	}//
-
-	double distance(const Point& other)
-	{
-		double distance_x = this->x - other.x;
-		double distance_y = this->y - other.y;
-		double distance = sqrt(distance_x * distance_x + distance_y * distance_y);
-		return distance;
-	}
-	void print()
-	{
-		cout << "X = " << x << "\t" << "Y = " << y << endl;
-	}
-
-};
-
-
-double distance(const Point A, const Point B);
 
 
 void main()
@@ -105,10 +17,10 @@ void main()
 //или объ€вление объекта "а" структуры "Point" 
 //или объ€вление экземпл€р "а" структуры "Point" 
 
-	cout << a.y << "\t" << a.x << endl;
+	cout << a.get_y() << "\t" << a.get_x() << endl;
 
 	Point* pa = &a;
-	cout << pa->x << "\t" << pa->y << endl;
+	cout << pa->get_x() << "\t" << pa->get_y() << endl;
 
 	Point A;
 	A.set_x(2);
@@ -119,16 +31,16 @@ void main()
 #ifdef Distance 
 	Point A;
 	Point B;
-	double x, y;
+	double get_x(), get_y();
 
-	cout << "¬ведите х и у 1 точки "; cin >> x >> y;
-	A.set_x(x); A.set_y(y);
+	cout << "¬ведите х и у 1 точки "; cin >> get_x() >> get_y();
+	A.set_x(get_x()); A.set_y(get_y());
 	cout << "\n-------------------------------------------------------------------------------\n";
 
-	cout << "¬ведите х и у 2 точки "; cin >> x >> y;
+	cout << "¬ведите х и у 2 точки "; cin >> get_x() >> get_y();
 	cout << "\n-------------------------------------------------------------------------------\n";
 
-	B.set_x(x); B.set_y(y);
+	B.set_x(get_x()); B.set_y(get_y());
 	A.print();
 	cout << "\n-------------------------------------------------------------------------------\n";
 	B.print();
@@ -188,13 +100,3 @@ void main()
 
 }
 
-
-
-
-double distance(const Point A,const Point B)
-{
-	double distance_x = A.get_x() - B.get_x();
-	double distance_y = A.get_y() - B.get_y();
-	double distance = sqrt(pow(distance_x,2) + pow(distance_y,2));
-	return distance;
-}
